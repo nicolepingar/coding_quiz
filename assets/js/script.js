@@ -39,23 +39,16 @@ var removeHeader = document.querySelector("header")
 var correctWrong = document.createElement("p");
 document.body.appendChild(correctWrong);
 var correctCount = 0;
-var wrongCount = 0;
 var formSection = document.querySelector(".formSection")
 formSection.setAttribute("style", "display: none");
 var doneHeader = document.querySelector(".done")
 var scorePara = document.querySelector(".score")
-// var allDone = document.createElement("h2")
-// document.body.appendChild(allDone)
 var questionHTML = document.querySelector(".question")
 var buttons = document.querySelector("#answers")
 var initials = document.querySelector("#inputScore")
 var submitButton = document.querySelector("#submitButton")
 var leaderBoard = document.getElementById("#leaderBoard")
-
-
-
-
-
+// goes through quizQuestions object 
 function quiz(x) {
     if (x < quizQuestions.length) {
         questionLinkHTML.textContent = quizQuestions[x].question
@@ -65,24 +58,25 @@ function quiz(x) {
         buttonD.textContent = quizQuestions[x].choices[3]
     }
 }
-
-// goes to next question no matter what button is pressed
+// when any of 4 answer choices are pressed, quizQuestions.length is increased by 1 so it goes to the next question
 answerButtons.addEventListener("click", answerIdentiy)
-
-
 // timer 
 var secondsLeft = 75;
+// selects h4 header as element to put timer in
 var timer = document.querySelector(".time");
 var startQuiz = document.querySelector("#startButton");
 startQuiz.addEventListener("click", function () {
     x = 0
     function setTime() {
-        answerButtons.setAttribute("style", "display: inline-block");
+        // when start button is pressed, buttons are displayed 
+        answerButtons.setAttribute("style", "display: flex");
         var timerInterval = setInterval(function () {
             secondsLeft--;
             timer.textContent = "Time Remaining: " + secondsLeft
+            // if the timer hits zero or all questions are met, end timer and call the endQuiz function
             if (secondsLeft === 0 || x === quizQuestions.length) {
                 clearInterval(timerInterval);
+                // when timer is cleared, these varaibles attributes change 
                 questionLinkHTML.setAttribute("style", "display: none");
                 answerButtons.setAttribute("style", "display: none");
                 formSection.setAttribute("style", "display: inline");
@@ -94,10 +88,9 @@ startQuiz.addEventListener("click", function () {
     }
     setTime();
     quiz(x)
-    // removes header and start button when start button is pressed
+    // removes h1 and start button when start button is pressed
     removeHeader.setAttribute("style", "display: none");
 })
-
 // if answer is right/wrong create a new element, p under body, p will either print correct or wrong 
 function answerIdentiy(event) {
     event.preventDefault()
@@ -108,53 +101,40 @@ function answerIdentiy(event) {
         correctWrong.textContent = "Wrong!";
         secondsLeft = secondsLeft - 10
     }
+    // relates to function quiz on line 53
     if (x < quizQuestions.length) {
         x++
     } else {
         endQuiz();
     }
     quiz(x)
-
 }
-
-var lb = [];
-
+// ends quiz and displays final screen 
 function endQuiz() {
     doneHeader.textContent = "All Done!"
     scorePara.textContent = "Your final score is: " + ((correctCount / quizQuestions.length) * 100) + "%"
-
-    for (var i = 0; i < lb.length; i++) {
-        var bl = lb[i];
-        
-        var li = document.createElement("li")
-        li.textContent = bl;
-        leaderBoard.appendChild(li);
-
-    }
-
-
-    // var leaderboardInitials = document.createElement("li")
-    // leaderBoard.appendChild(leaderboardInitials)
-    leaderboardInitials.textContent = JSON.parse(localStorage.getItem("initialsScore"))
-    
-
-    
 }
 
-var score = (correctCount / quizQuestions.length) * 100
+function renderData() {
+    var storedData = JSON.parse(localStorage.getItem("initialsScore"))
+    endQuiz();
+    }
+
+var initialsScore = [];
 submitButton.addEventListener("click", function (event) {
     event.preventDefault();
+    var score = (correctCount / quizQuestions.length) * 100
     var initialsScore = {
         initials: initials.value,
         score: score
     };
     localStorage.setItem("initialsScore", JSON.stringify(initialsScore));
 
-    
+    for (var i = 0; i < initialsScore.length; i++) {
+        var random = initialsScore[i];
+        
+        var li = document.createElement("li")
+        li.textContent = random;
+        leaderBoard.appendChild(li);
+    }
 })
-
-
-// var firstname = document.getElementById('firstname').value;
-// var entry = document.createElement('li');
-// entry.appendChild(document.createTextNode(firstname));
-// list.appendChild(entry);

@@ -1,0 +1,50 @@
+/* background pink for entire document */
+* {
+    background-color: #FFB6C1;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+/* styles and formats all paragraph tags */
+p {
+    text-align: center;
+    font-size: 20px;
+}
+/* positioning prevents timer from moving other text when it appears */
+.time {
+    position:absolute;
+}
+/* formats and postions questions */
+.question {
+    text-align: center;
+    margin-top: 100px;
+}
+/* postions final form and header tag */
+.formSection, header {
+    text-align: center;
+}
+/* formats all done h2 */
+.done {
+    font-size: 50px;
+}
+/* start quiz and answer choice button formatting */
+#startButton, .bStyle {
+    background-color: black;
+    color: #FFB6C1;
+    font-size: 25px;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+}
+/* formats and styles submit button */
+#submitButton {
+    background-color: black;
+    color: #FFB6C1;
+    font-size: 20px;
+    border: none;
+    padding: 5px;
+    margin-top: 5px;
+}
+/* postions answer choice buttons flexbox  */
+#answers {
+    justify-content: center;
+    align-items: center;
+  }

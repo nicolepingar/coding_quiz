@@ -5,32 +5,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>Coding Quiz</title>
 </head>
 
 <body>
-    <h4 class="time" style="text-align:right;"></h4>
+    <h4 class="time"></h4>
+    <br>
     <header id="header">
         <h1>Coding Quiz Challenge</h1>
-        <p>Try to answer the following code-related questions within the time limit. Keep in mid that incorrect answers
+        <p class="pStyle">Try to answer the following code-related questions within the time limit. Keep in mid that incorrect answers
             will penalize your score time by ten seconds!</p>
         <button id="startButton">Start Quiz</button>
     </header>
 
+
     <h2 class="question"></h2>
     <div id="answers">
-        <button class="buttonA"></button>
-        <button class="buttonB"></button>
-        <button class="buttonC"></button>
-        <button class="buttonD"></button>
+        <button class="buttonA bStyle"></button>
+        <button class="buttonB bStyle"></button>
+        <button class="buttonC bStyle"></button>
+        <button class="buttonD bStyle"></button>
     </div>
 
     <section class="formSection">
         <h2 class="done"> </h2>
         <p class="score"></p>
-        <label for="inputScore">Enter Initials: </label>
         <form>
-            <input type="text" id="inputScore" name="inputScore">
+            <label for="inputScore">Enter Initials: </label>
+            <input type="text" id="inputScore" name="inputScore"> <br>
             <input type="submit" value="Submit" id="submitButton">
         </form>
 

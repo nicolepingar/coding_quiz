@@ -47,7 +47,8 @@ var questionHTML = document.querySelector(".question")
 var buttons = document.querySelector("#answers")
 var initials = document.querySelector("#inputScore")
 var submitButton = document.querySelector("#submitButton")
-var leaderBoard = document.getElementById("#leaderBoard")
+var leaderBoard = document.getElementById("leaderBoard")
+var highScores = []
 // goes through quizQuestions object 
 function quiz(x) {
     if (x < quizQuestions.length) {
@@ -116,25 +117,37 @@ function endQuiz() {
 }
 
 function renderData() {
-    var storedData = JSON.parse(localStorage.getItem("initialsScore"))
+  
     endQuiz();
     }
 
 var initialsScore = [];
 submitButton.addEventListener("click", function (event) {
     event.preventDefault();
+   
     var score = (correctCount / quizQuestions.length) * 100
     var initialsScore = {
         initials: initials.value,
         score: score
     };
-    localStorage.setItem("initialsScore", JSON.stringify(initialsScore));
 
-    for (var i = 0; i < initialsScore.length; i++) {
-        var random = initialsScore[i];
-        
+    highScores.push(initialsScore);
+
+    localStorage.setItem("HighScores", JSON.stringify(highScores));
+
+    var storedData = JSON.parse(localStorage.getItem("HighScores"))
+    console.log(storedData);
+
+    leaderBoard.innerHTML = ""
+
+    for (var i = 0; i < storedData.length; i++) {
+        var random = storedData[i];
+        console.log(random);
         var li = document.createElement("li")
-        li.textContent = random;
+        li.textContent = random.initials + " " + random.score;
         leaderBoard.appendChild(li);
     }
+
+    renderData();
 })
+

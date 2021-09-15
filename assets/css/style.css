@@ -48,3 +48,8 @@ p {
     justify-content: center;
     align-items: center;
   }
+/* leaderboard list formating */
+  ul {
+      list-style: none;
+      padding: 0;
+  }

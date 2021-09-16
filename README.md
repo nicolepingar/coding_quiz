@@ -1,4 +1,4 @@
-# JavaScrip Coding Quiz
+# JavaScript Coding Quiz
 
 ## Description
 

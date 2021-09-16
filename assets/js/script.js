@@ -49,6 +49,7 @@ var initials = document.querySelector("#inputScore")
 var submitButton = document.querySelector("#submitButton")
 var leaderBoard = document.getElementById("leaderBoard")
 var highScores = []
+var initialsScore = [];
 // goes through quizQuestions object 
 function quiz(x) {
     if (x < quizQuestions.length) {
@@ -114,17 +115,23 @@ function answerIdentiy(event) {
 function endQuiz() {
     doneHeader.textContent = "All Done!"
     scorePara.textContent = "Your final score is: " + ((correctCount / quizQuestions.length) * 100) + "%"
-}
-
-function renderData() {
-  
-    endQuiz();
+    // gets stored data from local storage
+    var storedData = JSON.parse(localStorage.getItem("highScores"))
+    // creates new list element when user inputs initials and pressed submitt
+    for (var i = 0; i < storedData.length; i++) {
+        var random = storedData[i];
+        var li = document.createElement("li")
+        li.textContent = random.initials + " " + random.score;
+        leaderBoard.appendChild(li);
     }
-
-var initialsScore = [];
+    // if the leaderboard was updated in stored data, update the leaderboard upon refresh 
+    if (storedData !== null) {
+        leaderBoard = storedData;
+    }
+}
+// when the submit button is clicked, initials and data are set in local storage
 submitButton.addEventListener("click", function (event) {
     event.preventDefault();
-   
     var score = (correctCount / quizQuestions.length) * 100
     var initialsScore = {
         initials: initials.value,
@@ -132,22 +139,8 @@ submitButton.addEventListener("click", function (event) {
     };
 
     highScores.push(initialsScore);
-
-    localStorage.setItem("HighScores", JSON.stringify(highScores));
-
-    var storedData = JSON.parse(localStorage.getItem("HighScores"))
-    console.log(storedData);
-
+    localStorage.setItem("highScores", JSON.stringify(highScores));
     leaderBoard.innerHTML = ""
-
-    for (var i = 0; i < storedData.length; i++) {
-        var random = storedData[i];
-        console.log(random);
-        var li = document.createElement("li")
-        li.textContent = random.initials + " " + random.score;
-        leaderBoard.appendChild(li);
-    }
-
-    renderData();
+    endQuiz();
 })
 
